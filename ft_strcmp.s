@@ -12,16 +12,18 @@ ft_strcmp:
     mov bl, [rsi]
     cmp al, bl
     jne .difference
-    test al, al          ; if al is 0 then strings are identical
-    je .end
+    test al, al           ; if al == 0, then end of string reached (strings are identical)
+    je .return_zero
     inc rdi
     inc rsi
     jmp .compare_loop
+
 .difference:
-    movzx eax, al        ; zero-extend to int
-    movzx ebx, bl
-    sub eax, ebx
-.end:
+    movsx eax, al         ; sign-extend AL to EAX
+    movsx ebx, bl         ; sign-extend BL to EBX
+    sub eax, ebx          ; compute the signed difference
     ret
 
-section .note.GNU-stack
+.return_zero:
+    xor eax, eax          ; zero out EAX (return 0)
+    ret
