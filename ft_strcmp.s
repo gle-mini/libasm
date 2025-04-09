@@ -27,3 +27,4 @@ ft_strcmp:
 .return_zero:
     xor eax, eax          ; zero out EAX (return 0)
     ret
+
