@@ -16,7 +16,7 @@ ft_strdup:
     call ft_strlen       ; length returned in RAX (without null terminator)
     inc rax              ; add 1 for the null terminator
     mov rdi, rax         ; set size as argument for malloc
-    call malloc          ; malloc(size), pointer returned in RAX
+    call malloc wrt ..plt; malloc(size), pointer returned in RAX
     test rax, rax
     jz .return_null      ; return NULL if allocation failed
     ; Copy the original string into allocated memory.
