@@ -1,18 +1,14 @@
-# Makefile
-
 NAME = libasm.a
 ASM = nasm
 ASMFLAGS = -f elf64
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 
-# Assembly source files for mandatory functions
 SRC = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
 OBJ = $(SRC:.s=.o)
 
-# Optional bonus files (must be in separate file _bonus.s)
-BONUS_SRC = _bonus.s
-BONUS_OBJ = $(_bonus.s:.s=.o)
+BONUS_SRC = ft_atoi_base.s
+BONUS_OBJ = $(BONUS_SRC:.s=.o)
 
 .PHONY: all bonus clean fclean re test
 
@@ -25,13 +21,12 @@ $(NAME): $(OBJ)
 %.o: %.s
 	$(ASM) $(ASMFLAGS) -o $@ $<
 
-bonus:
-	$(ASM) $(ASMFLAGS) -o _bonus.o _bonus.s
-	@ar rcs $(NAME) _bonus.o
+bonus: $(BONUS_OBJ)
+	@ar rcs $(NAME) $(BONUS_OBJ)
 	@echo "Bonus functions added to $(NAME)."
 
 clean:
-	@rm -f $(OBJ) _bonus.o main.o
+	@rm -f $(OBJ) $(BONUS_OBJ) main.o
 	@echo "Cleaned object files."
 
 fclean: clean
