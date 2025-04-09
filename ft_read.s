@@ -10,14 +10,14 @@ extern __errno_location   ; changed from errno_location
 ft_read:
     mov rax, 0           ; syscall number for read
     syscall
-    cmp rax, -1
-    jne .read_ok
-    ; Error handling: syscall returned an error, save error code.
-    mov rcx, rax
-    neg rcx              ; convert error to positive code
-    call __errno_location  ; get pointer to errno variable
-    mov [rax], ecx       ; set errno
-    mov rax, -1
+    cmp rax, 0           ; check if result is >= 0
+    jge .read_ok         ; no error if rax >= 0
+    ; Error handling: syscall returned an error (negative value)
+    mov rcx, rax         ; rax contains -errno, store in rcx
+    neg rcx              ; now rcx holds the positive error code (errno)
+    call __errno_location wrt ..plt  ; get pointer to errno
+    mov [rax], rcx       ; store the error code from rcx into errno
+    mov rax, -1         ; ensure the function returns -1 on error
 .read_ok:
     ret
 
