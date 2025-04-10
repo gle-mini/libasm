@@ -28,12 +28,13 @@ int main(void)
     printf("ft_strcpy: %s\n", dest);
 
     /* Test ft_strcmp */
-    ret_cmp = ft_strcmp("abc", "abc");
-    printf("ft_strcmp (\"abc\", \"abc\"): %d\n", ret_cmp);
-    ret_cmp = ft_strcmp("abc", "abd");
-    printf("ft_strcmp (\"abc\", \"abd\"): %d\n", ret_cmp);
-    ret_cmp = ft_strcmp("abd", "abc");
-    printf("ft_strcmp (\"abd\", \"abc\"): %d\n", ret_cmp);
+    ret_cmp = ft_strcmp("", "");
+    printf("ft_strcmp (\"\", \"\"): %d\n", ret_cmp);
+    ret_cmp = ft_strcmp("Tripouille", "Tripouille");
+    printf("ft_strcmp (\"Tripouille\", \"Tripouille\"): %d\n", ret_cmp);
+    ret_cmp = ft_strcmp("Tripouille", "tripouille");
+    printf("ft_strcmp (\"Tripouille\", \"tripouille\"): %d\n", ret_cmp);
+    printf("ft_strcmp (\"Tripouille\", \"tripouille\"): %d\n", strcmp("Tripouille", "tripouille"));
 
     /* Test ft_write */
     ssize_t written = ft_write(1, "Hello from ft_write\n", 22);
